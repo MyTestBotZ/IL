@@ -63,12 +63,14 @@ async def private_receive_handler(c: Client, m: Message):
             return
     try:
         log_msg = await m.forward(chat_id=Var.BIN_CHANNEL)
-        stream_link = Var.URL + 'watch/' + str(log_msg.message_id)
-        shortlink = get_shortlink(stream_link) 
+         #--- watch
+        stream_link2 = Var.URL + 'watch/' + str(log_msg.message_id)
+        shortlink = get_shortlink(stream_link2) 
         if shortlink:
             stream_link = shortlink
-        online_link = Var.URL + 'download/'+ str(log_msg.message_id) 
-        shortlinka = get_shortlink(online_link)
+            #---- download
+        online_link2 = Var.URL + 'download/'+ str(log_msg.message_id) 
+        shortlinka = get_shortlink(online_link2)
         if shortlinka:
             online_link = shortlinka
         
@@ -109,8 +111,8 @@ async def private_receive_handler(c: Client, m: Message):
             parse_mode="HTML", 
             quote=True,
             disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🖥STREAM", url=stream_link), #Stream Link
-                                                InlineKeyboardButton('Dᴏᴡɴʟᴏᴀᴅ📥', url=online_link)]]) #Download Link
+            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🖥STREAM", url=stream_link2), #Stream Link
+                                                InlineKeyboardButton('Dᴏᴡɴʟᴏᴀᴅ📥', url=online_link2)]]) #Download Link
         )
     except FloodWait as e:
         print(f"Sleeping for {str(e.x)}s")
@@ -128,7 +130,7 @@ async def channel_receive_handler(bot, broadcast):
         stream_link = Var.URL + 'watch/' + str(log_msg.message_id) 
         online_link = Var.URL + 'download/' + str(log_msg.message_id) 
         await log_msg.reply_text(
-            text=f"**Cʜᴀɴɴᴇʟ Nᴀᴍᴇ:** `{broadcast.chat.title}`\n**Cʜᴀɴɴᴇʟ ID:** `{broadcast.chat.id}`\n**Rᴇǫᴜᴇsᴛ ᴜʀʟ:** {stream_link}",
+            text=f"**Cʜᴀɴɴᴇʟ Nᴀᴍᴇ:** `{broadcast.chat.title}`\n**#Channel ID:** `{broadcast.chat.id}`\n**ᴡᴀᴛᴄʜ:** {stream_link}\n\n**ᴅᴏᴡɴʟᴏᴀᴅ:** {online_link}",
             quote=True,
             parse_mode="Markdown"
         )
@@ -138,7 +140,7 @@ async def channel_receive_handler(bot, broadcast):
             reply_markup=InlineKeyboardMarkup(
                 [
                     [InlineKeyboardButton("🖥STREAM ", url=stream_link),
-                     InlineKeyboardButton('Dᴏᴡɴʟᴏᴀᴅ📥', url=online_link)] 
+                     InlineKeyboardButton('Dᴏᴡɴʟᴏᴀᴅ📥', url=online_link)]                   
                 ]
             )
         )

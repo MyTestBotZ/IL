@@ -72,7 +72,7 @@ async def sts(c: Client, m: Message):
     diff = human_readable_timedelta(diff)
 
     await m.reply_text(
-        text=f"**Bot UpTime: {diff}**\n\n**Total Disk Space:** {total} \n**Used Space:** {used}({disk_usage}%) \n**Free Space:** {free} \n**CPU Usage:** {cpu_usage}% \n**RAM Usage:** {ram_usage}%\n\n**Name:** {m.from_user.first_name}\n**User ID:** `{chat_id}`\n\n**Total Users in DB: {total_users}**",
+        text=f"**Bot UpTime: {diff}**\n\n**Total Disk Space:** {total} \n**Used Space:** {used}({disk_usage}%) \n**Free Space:** {free} \n**CPU Usage:** {cpu_usage}% \n**RAM Usage:** {ram_usage}%\n\n**Name:** {m.from_user.first_name}\n**User ID:** `{chat_id}`\n\n**Total Bot Users: {total_users}**",
         parse_mode="Markdown",
         quote=True
     )

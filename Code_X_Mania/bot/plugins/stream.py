@@ -141,7 +141,7 @@ async def channel_receive_handler(bot, broadcast):
             message_id=broadcast.message_id,
             reply_markup=InlineKeyboardMarkup(
                 [
-                    [InlineKeyboardButton("ᴅᴏᴡɴʟᴏᴀᴅ ᴠɪᴀ ʙᴏᴛ", url=f"https://t.me/TGinstantLinkBot?start=MyTestBotZ_{str(log_msg.message_id)}")]
+                    [InlineKeyboardButton("ᴅᴏᴡɴʟᴏᴀᴅ ᴠɪᴀ ʙᴏᴛ", url=f"https://t.me/TGinstantLinkBot?start=MyTestBotZ_{str(log_msg.message_id)}")],
                     [InlineKeyboardButton("🖥STREAM ", url=stream_link),
                      InlineKeyboardButton('Dᴏᴡɴʟᴏᴀᴅ📥', url=online_link)]                   
                 ]

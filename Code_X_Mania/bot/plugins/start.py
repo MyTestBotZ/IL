@@ -133,11 +133,11 @@ async def start(b, m):
         elif get_msg.audio:
             file_name = f"{get_msg.audio.file_name}"
 
-        stream_link2 = Var.URL + 'watch/' + str(log_msg.message_id)
+        stream_link2 = Var.URL + 'watch/' + str(get_msg.message_id)
         shortlink = get_shortlink(stream_link2)
         if shortlink:
             stream_link = shortlink
-        online_link2 = Var.URL + 'download/' + str(log_msg.message_id)
+        online_link2 = Var.URL + 'download/' + str(get_msg.message_id)
         shortlinka = get_shortlink(online_link2)
         if shortlinka:
             online_link = shortlinka

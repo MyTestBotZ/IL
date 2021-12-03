@@ -217,7 +217,7 @@ async def help_handler(bot, message):
         )
     )
 
- HELP_T = """<b> ʜᴏᴡ ᴛᴏ ᴜsᴇ ᴍᴇ </b>
+ HELP_T="""<b> ʜᴏᴡ ᴛᴏ ᴜsᴇ ᴍᴇ </b>
  
  <i>Send me any file/media from telegram, I'll provide external direct download link & Streaming Link..</i>
  """

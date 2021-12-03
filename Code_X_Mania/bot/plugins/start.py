@@ -207,7 +207,7 @@ async def help_handler(bot, message):
             return
    
     await message.reply_text(
-       text="Send me any file/media from telegram, I'll provide external direct download link..",
+       text=HELP_T, #"Send me any file/media from telegram, I'll provide external direct download link..",
             parse_mode="HTML",
             
           reply_markup=InlineKeyboardMarkup(
@@ -217,6 +217,10 @@ async def help_handler(bot, message):
         )
     )
 
+ HELP_T = """<b> ʜᴏᴡ ᴛᴏ ᴜsᴇ ᴍᴇ </b>
+ 
+ <i>Send me any file/media from telegram, I'll provide external direct download link & Streaming Link..</i>
+ """
       
       
 @StreamBot.on_message(filters.command('about') & filters.private & ~filters.edited)

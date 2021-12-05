@@ -9,18 +9,19 @@ from pyrogram import filters, Client
 from pyrogram.errors import FloodWait, UserNotParticipant
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 db = Database(Var.DATABASE_URL, Var.SESSION_NAME)
-from pyshorteners import Shortener
+#from pyshorteners import Shortener
 
 
 
-def get_shortlink(url):
+"""def get_shortlink(url):
    shortlink = False 
    try:
       shortlink = Shortener().dagd.short(url)
    except Exception as err:
        print(err)
        pass
-   return shortlink
+   return shortlink"""
+
 @StreamBot.on_message(filters.private & (filters.document | filters.video | filters.audio) & ~filters.edited, group=4)
 async def private_receive_handler(c: Client, m: Message):
     if not await db.is_user_exist(m.from_user.id):
@@ -65,14 +66,14 @@ async def private_receive_handler(c: Client, m: Message):
         log_msg = await m.forward(chat_id=Var.BIN_CHANNEL)
          #--- watch
         stream_link2 = Var.URL + 'watch/' + str(log_msg.message_id)
-        shortlink = get_shortlink(stream_link2) 
-        if shortlink:
-            stream_link = shortlink
+       # shortlink = get_shortlink(stream_link2) 
+      #  if shortlink:
+          #  stream_link = shortlink
             #---- download
         online_link2 = Var.URL + 'download/'+ str(log_msg.message_id) 
-        shortlinka = get_shortlink(online_link2)
-        if shortlinka:
-            online_link = shortlinka
+        #shortlinka = get_shortlink(online_link2)
+        #if shortlinka:
+            #online_link = shortlinka
         
         file_size = None
         if m.video:
@@ -134,6 +135,7 @@ async def channel_receive_handler(bot, broadcast):
         await log_msg.reply_text(
             text=f"**Cʜᴀɴɴᴇʟ Nᴀᴍᴇ:** `{broadcast.chat.title}`\n**#Channel ID:** `{broadcast.chat.id}`\n**ᴡᴀᴛᴄʜ:** {stream_link}\n\n**ᴅᴏᴡɴʟᴏᴀᴅ:** {online_link}",
             quote=True,
+            disable_web_page_preview=True,
             parse_mode="Markdown"
         )
         await bot.edit_message_reply_markup(
